@@ -54,8 +54,8 @@
         }
 
         body.dark table tr:hover {
-            background-color: #555;
-            color: #f9f9f9;
+            background-color: #555;  
+            color: #f9f9f9;  
         }
 
         .container.dark {
@@ -214,7 +214,7 @@
             }
 
             .pagination {
-                position: static;
+                position: static;  
                 box-shadow: none;
             }
 
@@ -228,43 +228,43 @@
             }
         }
 
-body.light input[type="text"],
-body.dark input[type="text"] {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
-    padding: 5px;
-    border-radius: 5px;
-}
+        body.light input[type="text"],
+        body.dark input[type="text"] {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+        }
 
-body.dark input[type="text"] {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-}
+        body.dark input[type="text"] {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
 
-.pagination button {
-    background-color: #f1f1f1;
-    color: #000;
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .pagination button {
+            background-color: #f1f1f1;
+            color: #000;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-body.dark .pagination button {
-    background-color: #444;
-    color: #fff;
-    border: 1px solid #555;
-}
+        body.dark .pagination button {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
 
-.pagination button:hover {
-    background-color: #ddd;
-}
+        .pagination button:hover {
+            background-color: #ddd;
+        }
 
-body.dark .pagination button:hover {
-    background-color: #666;
-}
+        body.dark .pagination button:hover {
+            background-color: #666;
+        }
 
     </style>
 </head>
@@ -322,42 +322,42 @@ body.dark .pagination button:hover {
         }
 
         function renderGames() {
-    const gameList = document.getElementById('gameList');
-    const searchQuery = normalizeText(document.getElementById('search').value);
-    const filteredGames = Object.values(games).filter(game =>
-        normalizeText(game.name).includes(searchQuery)
-    );
+            const gameList = document.getElementById('gameList');
+            const searchQuery = normalizeText(document.getElementById('search').value);
+            const filteredGames = Object.values(games).filter(game =>
+                normalizeText(game.name).includes(searchQuery)
+            );
 
-    const totalItems = filteredGames.length;
-    const totalPages = itemsPerPage === 'all' ? 1 : Math.ceil(totalItems / itemsPerPage);
-    currentPage = Math.min(currentPage, totalPages);
+            const totalItems = filteredGames.length;
+            const totalPages = itemsPerPage === 'all' ? 1 : Math.ceil(totalItems / itemsPerPage);
+            currentPage = Math.min(currentPage, totalPages);
 
-    const start = itemsPerPage === 'all' ? 0 : (currentPage - 1) * itemsPerPage;
-    const end = itemsPerPage === 'all' ? totalItems : start + itemsPerPage;
-    const paginatedGames = filteredGames.slice(start, end);
+            const start = itemsPerPage === 'all' ? 0 : (currentPage - 1) * itemsPerPage;
+            const end = itemsPerPage === 'all' ? totalItems : start + itemsPerPage;
+            const paginatedGames = filteredGames.slice(start, end);
 
-    gameList.innerHTML = paginatedGames.map(game => `    
-        <tr>
-            <td 
-                class="clickable" 
-                title="Click to copy Game ID to clipboard" 
-                onclick="copyToClipboard(${game.id})">${game.id}</td>
-            <td 
-                class="clickable" 
-                title="Click to open the Steam page for this game" 
-                onclick="openSteamPage(${game.id})">${game.name}</td>
-            <td>${game.drm_notice}</td>
-            <td>${game.ext_user_account_notice}</td>
-        </tr>
-    `).join('');
+            gameList.innerHTML = paginatedGames.map(game => `    
+                <tr>
+                    <td 
+                        class="clickable" 
+                        title="Click to copy Game ID to clipboard" 
+                        onclick="copyToClipboard(${game.id})">${game.id}</td>
+                    <td 
+                        class="clickable" 
+                        title="Click to open the Steam page for this game" 
+                        onclick="openSteamPage(${game.id})">${game.name}</td>
+                    <td>${game.drm_notice}</td>
+                    <td>${game.ext_user_account_notice}</td>
+                </tr>
+            `).join('');
 
-    renderPagination(totalPages, totalItems);
-}
+            renderPagination(totalPages, totalItems);
+        }
 
         function renderPagination(totalPages, totalItems) {
             const pagination = document.getElementById('pagination');
 
-            pagination.innerHTML = `
+            pagination.innerHTML = `  
                 <button onclick="changePage('prev')" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
                 <span>Page ${currentPage} / ${totalPages} (${totalItems} items)</span>
                 <button onclick="changePage('next')" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
@@ -371,39 +371,43 @@ body.dark .pagination button:hover {
                 console.error('Error copying ID: ', err);
             });
         }
-
+        
         function openSteamPage(id) {
             const steamURL = `https://store.steampowered.com/app/${id}`;
             window.open(steamURL, '_blank');
         }
 
         function changePage(direction) {
-            if (direction === 'prev' && currentPage > 1) {
-                currentPage--;
-            } else if (direction === 'next' && currentPage < Math.ceil(games.length / itemsPerPage)) {
-                currentPage++;
-            }
+            if (direction === 'prev' && currentPage > 1) currentPage--;
+            if (direction === 'next' && currentPage < Math.ceil(Object.values(games).length / itemsPerPage)) currentPage++;
             renderGames();
         }
 
         function changeItemsPerPage() {
-            itemsPerPage = document.getElementById('itemsPerPage').value;
+            const select = document.getElementById('itemsPerPage');
+            itemsPerPage = select.value === 'all' ? 'all' : parseInt(select.value, 10);
+            currentPage = 1;
             renderGames();
         }
 
         function searchGames() {
+            currentPage = 1;
             renderGames();
         }
 
         function toggleTheme() {
-            document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
-            document.querySelector('.container').classList.toggle('dark');
-            document.querySelector('.container').classList.toggle('light');
-            document.querySelector('h1').classList.toggle('dark');
-            document.querySelector('h1').classList.toggle('light');
+            const body = document.body;
+            body.classList.toggle('dark');
+            body.classList.toggle('light');
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
         }
 
+        function loadTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.body.classList.add(theme);
+        }
+
+        loadTheme();
         fetchGames();
     </script>
 </body>
