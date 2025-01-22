@@ -357,7 +357,7 @@
         function renderPagination(totalPages, totalItems) {
             const pagination = document.getElementById('pagination');
 
-            pagination.innerHTML = `  
+            pagination.innerHTML = ` 
                 <button onclick="changePage('prev')" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
                 <span>Page ${currentPage} / ${totalPages} (${totalItems} items)</span>
                 <button onclick="changePage('next')" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
@@ -371,7 +371,7 @@
                 console.error('Error copying ID: ', err);
             });
         }
-        
+
         function openSteamPage(id) {
             const steamURL = `https://store.steampowered.com/app/${id}`;
             window.open(steamURL, '_blank');
